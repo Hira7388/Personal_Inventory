@@ -21,6 +21,7 @@ public class UIManager : Singleton<UIManager>
 
     public T GetUI<T>() where T : UIBase
     {
+        // 게임 오브젝트 이름도 스크립트 이름과 반드시 동일해야 한다.(이는 개선이 필요해보입니다.)
         UIBase ui;
         string uiName = typeof(T).Name;
 

@@ -12,14 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fe461b5276293e4b97ec4bef7ccbe15, type: 3}
   m_Name: Character
   m_EditorClassIdentifier: 
-  Name: 
-  Description: 
+  CharaterType: "\uC804\uC0AC"
+  Description: "\uC6A9\uB9F9\uD55C \uC804\uC0AC\uC774\uB2E4. "
   BaseStat:
-    Health: 0
-    Attack: 0
-    Defense: 0
+    Health: 100
+    Attack: 10
+    Defense: 10
+    Critical: 5
   LevelUpStat:
     Health: 10
     Attack: 5
     Defense: 2
+    Critical: 0
   ExpTable: {fileID: 11400000, guid: e4f026efc1282ad41987f0eac8d35227, type: 2}
