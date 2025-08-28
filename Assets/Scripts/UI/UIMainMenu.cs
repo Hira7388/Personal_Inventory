@@ -29,7 +29,7 @@ public class UIMainMenu : UIBase
     protected override void Awake()
     {
         base.Awake();
-        // Todo : 게임 매니저에서 Player 불러오기 (순서 조심해야 할 듯하다)
+        // Todo : 게임 매니저에서 Player 불러오기 (순서 조심해야 할 듯하다 => 그래서 Start로 옮겼습니다)
     }
 
     private void Start()
