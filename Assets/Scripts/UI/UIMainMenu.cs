@@ -9,22 +9,33 @@ public class UIMainMenu : UIBase
     [SerializeField] private Button statusButton;
     [SerializeField] private Button inventoryButton;
 
+    [SerializeField] private GameObject hiddenButtonGroup;
+
     // =====================
     // 버튼 이벤트 구간
     // =====================
     private void OnEnable()
     {
-        statusButton.onClick.AddListener(OnClickStatusButton);
-        inventoryButton.onClick.AddListener(OnClickInventoryButton);
+        statusButton.onClick.AddListener(OpenStatus);
+        inventoryButton.onClick.AddListener(OpenInventory);
     }
     private void OnDisable()
     {
-        statusButton.onClick.RemoveListener(OnClickStatusButton);
-        inventoryButton.onClick.RemoveListener(OnClickInventoryButton);
+        statusButton.onClick.RemoveListener(OpenStatus);
+        inventoryButton.onClick.RemoveListener(OpenInventory);
     }
+    
 
-    private void OnClickStatusButton() => UIManager.Instance.OpenUI<UIStatus>();
-    private void OnClickInventoryButton() => UIManager.Instance.OpenUI<UIInventory>();
+    private void OpenStatus()
+    {
+        hiddenButtonGroup.SetActive(false);
+        UIManager.Instance.OpenUI<UIStatus>();
+    }
+    private void OpenInventory()
+    {
+        hiddenButtonGroup.SetActive(false);
+        UIManager.Instance.OpenUI<UIInventory>();
+    }
 
 
     // =====================
