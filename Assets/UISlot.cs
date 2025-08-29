@@ -7,6 +7,7 @@ using static UnityEditor.Experimental.GraphView.GraphView;
 public class UISlot : MonoBehaviour
 {
     [SerializeField] private Image itemIcon;
+    [SerializeField] private Image equippedIconObject;
 
     private ItemSO item;
     private Player player;
@@ -33,11 +34,22 @@ public class UISlot : MonoBehaviour
         {
             itemIcon.sprite = item.icon;
             itemIcon.gameObject.SetActive(true);
+
+            if (player != null && equippedIconObject != null)
+            {
+                bool isEquipped = (player.EquippedWeapon == item);
+                equippedIconObject.gameObject.SetActive(isEquipped);
+            }
         }
         else // 슬롯이 비어있을 경우
         {
             itemIcon.sprite = null;
             itemIcon.gameObject.SetActive(false);
+
+            if (equippedIconObject != null)
+            {
+                equippedIconObject.gameObject.SetActive(false);
+            }
         }
     }
 
@@ -45,7 +57,15 @@ public class UISlot : MonoBehaviour
     {
         if (item == null || player == null) return;
 
-        // 아이템 타입을 체크하는 분기문 없이, 바로 Equip 함수를 호출합니다.
-        player.Equip(item);
+        if (player.EquippedWeapon == item)
+        {
+            // 같다면, 장착 해제
+            player.UnEquip(item);
+        }
+        else
+        {
+            // 다르다면, 장착
+            player.Equip(item);
+        }
     }
 }

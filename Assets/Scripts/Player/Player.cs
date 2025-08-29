@@ -39,6 +39,7 @@ public class Player : MonoBehaviour
     public event Action OnLevelChanged;
     public event Action OnGoldChanged;
     public event Action OnStatsChanged;
+    public event Action OnEquipmentChanged;
 
     // 인벤토리
     public Inventory Inventory { get; private set; }
@@ -137,6 +138,7 @@ public class Player : MonoBehaviour
         _playerRuntimeStat.Critical.AddModifierStat(EquippedWeapon.statBonuses.Critical);
 
         OnStatsChanged?.Invoke();
+        OnEquipmentChanged?.Invoke();
     }
 
     public void UnEquip(ItemSO itemToUnEquip)
@@ -153,5 +155,6 @@ public class Player : MonoBehaviour
         EquippedWeapon = null;
 
         OnStatsChanged?.Invoke();
+        OnEquipmentChanged?.Invoke();
     }
 }

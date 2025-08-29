@@ -53,8 +53,11 @@ public class UIInventory : UIBase
             closeButton.onClick.AddListener(Close);
 
         if (inventory != null)
+        {
             inventory.OnInventoryChanged += RefreshInventory;
-        
+            if (player != null)
+                player.OnEquipmentChanged += RefreshInventory;
+        }
         RefreshInventory();
     }
 
@@ -65,7 +68,11 @@ public class UIInventory : UIBase
             closeButton.onClick.RemoveListener(Close);
 
         if (inventory != null)
+        {
             inventory.OnInventoryChanged -= RefreshInventory;
+            if (player != null)
+                player.OnEquipmentChanged += RefreshInventory;
+        }
     }
 
     private void InitInventoryUI()
