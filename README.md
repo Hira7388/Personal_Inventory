@@ -25,12 +25,12 @@ Unity UI 연습: RPG 정보창 및 인벤토리 시스템
 **`CharacterSO.cs`**, **`ItemSO.cs`** 등을 활용하여 캐릭터와 아이템의 원본 데이터를 관리합니다.
 
 ### 3. 이벤트 기반 UI 업데이트
-    * `Player.cs`, `Inventory.cs` 등 데이터가 변경되는 스크립트에서 C# `Action` 이벤트를 발생시킵니다. (`OnLevelChanged`, `OnInventoryChanged`, `OnEquipmentChanged` 등)
-    * `UIMainMenu`, `UIStatus`, `UIInventory` 등 UI 스크립트들은 이 이벤트를 구독(Subscribe)하고 있다가, 이벤트 발생 시에만 UI를 새로고침합니다. 이는 불필요한 `Update()` 호출을 줄여 성능에 이점을 줍니다.
+** `Player.cs`, `Inventory.cs` 등 데이터가 변경되는 스크립트에서 C# `Action` 이벤트를 발생시킵니다. (`OnLevelChanged`, `OnInventoryChanged`, `OnEquipmentChanged` 등)
+** `UIMainMenu`, `UIStatus`, `UIInventory` 등 UI 스크립트들은 이 이벤트를 구독(Subscribe)하고 있다가, 이벤트 발생 시에만 UI를 새로고침합니다. 이는 불필요한 `Update()` 호출을 줄여 성능에 이점을 줍니다.
 
 ### 4. 모듈화된 인벤토리 및 스탯 시스템
-   *`Inventory.cs`**: 아이템의 추가/삭제 로직을 담당하는 독립적인 컴포넌트로 설계하여 `Player` 뿐만 아니라 NPC, 창고 등에도 재사용이 가능하도록 구현했습니다.
-   *`StatData.cs`**: 캐릭터의 스탯을 '기본 스탯(Base)'과 '추가 스탯(Modifier)'으로 분리하여 관리합니다. 아이템 장착 시 `Modifier` 리스트에 보너스 스탯을 추가하고, 해제 시 제거하는 방식으로 동적인 스탯 변화를 구현했습니다.
+** `Inventory.cs`**: 아이템의 추가/삭제 로직을 담당하는 독립적인 컴포넌트로 설계하여 `Player` 뿐만 아니라 NPC, 창고 등에도 재사용이 가능하도록 구현했습니다.
+** `StatData.cs`**: 캐릭터의 스탯을 '기본 스탯(Base)'과 '추가 스탯(Modifier)'으로 분리하여 관리합니다. 아이템 장착 시 `Modifier` 리스트에 보너스 스탯을 추가하고, 해제 시 제거하는 방식으로 동적인 스탯 변화를 구현했습니다.
 
 ============================================================================
 
