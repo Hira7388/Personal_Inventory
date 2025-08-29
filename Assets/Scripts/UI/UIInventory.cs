@@ -75,7 +75,12 @@ public class UIInventory : UIBase
         {
             GameObject slotGO = Instantiate(slotPrefab, contentParent);
             UISlot slot = slotGO.GetComponent<UISlot>();
-            slots.Add(slot);
+            if (slot != null)
+            {
+                // 생성된 슬롯에 Player 참조를 전달하여 초기화합니다. (중요!)
+                slot.Initialize(player);
+                slots.Add(slot);
+            }
         }
     }
 
@@ -95,8 +100,6 @@ public class UIInventory : UIBase
                 slots[i].SetItem(null);
             }
         }
-
-        InitInventoryUI();
     }
 
     private void Close()

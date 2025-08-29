@@ -2901,6 +2901,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   useDonDestroyOnLoad: 1
+  startingItems:
+  - {fileID: 11400000, guid: 94321844133d57e488369bf8c0ada693, type: 2}
 --- !u!1 &1064189304
 GameObject:
   m_ObjectHideFlags: 0

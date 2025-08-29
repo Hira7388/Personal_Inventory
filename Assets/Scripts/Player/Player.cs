@@ -38,9 +38,11 @@ public class Player : MonoBehaviour
     public event Action OnExperienceChanged;
     public event Action OnLevelChanged;
     public event Action OnGoldChanged;
+    public event Action OnStatsChanged;
 
     // 인벤토리
     public Inventory Inventory { get; private set; }
+    public ItemSO EquippedWeapon { get; private set; }
 
     private void Awake()
     {
@@ -119,15 +121,37 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void Equip(Item itemToEquip)
+    public void Equip(ItemSO itemToEquip)
     {
-        Debug.Log($"{itemToEquip.itemName}을 장착");
-        // TODO: 플레이어 스탯 변경 로직
+        if (EquippedWeapon != null)
+        {
+            UnEquip(EquippedWeapon);
+        }
+
+        EquippedWeapon = itemToEquip;
+        Debug.Log($"{EquippedWeapon.itemName} 장착!");
+
+        _playerRuntimeStat.Attack.AddModifierStat(EquippedWeapon.statBonuses.Attack);
+        _playerRuntimeStat.Defense.AddModifierStat(EquippedWeapon.statBonuses.Defense);
+        _playerRuntimeStat.Health.AddModifierStat(EquippedWeapon.statBonuses.Health);
+        _playerRuntimeStat.Critical.AddModifierStat(EquippedWeapon.statBonuses.Critical);
+
+        OnStatsChanged?.Invoke();
     }
 
-    public void UnEquip(Item itemToUnEquip)
+    public void UnEquip(ItemSO itemToUnEquip)
     {
-        Debug.Log($"{itemToUnEquip.itemName}을 해제");
-        // TODO: 플레이어 스탯 복구 로직
+        if (EquippedWeapon != itemToUnEquip) return;
+
+        Debug.Log($"{EquippedWeapon.itemName} 해제!");
+
+        _playerRuntimeStat.Attack.RemoveModifierStat(EquippedWeapon.statBonuses.Attack);
+        _playerRuntimeStat.Defense.RemoveModifierStat(EquippedWeapon.statBonuses.Defense);
+        _playerRuntimeStat.Health.RemoveModifierStat(EquippedWeapon.statBonuses.Health);
+        _playerRuntimeStat.Critical.RemoveModifierStat(EquippedWeapon.statBonuses.Critical);
+
+        EquippedWeapon = null;
+
+        OnStatsChanged?.Invoke();
     }
 }

@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    public List<Item> Items { get; private set; } = new List<Item>();
+    public List<ItemSO> Items { get; private set; } = new List<ItemSO>();
     public event Action OnInventoryChanged;
 
-    public void AddItem(Item itemToAdd)
+    public void AddItem(ItemSO itemToAdd)
     {
         Items.Add(itemToAdd);
 
@@ -16,7 +16,7 @@ public class Inventory : MonoBehaviour
         OnInventoryChanged?.Invoke();
     }
 
-    public void RemoveItem(Item itemToRemove)
+    public void RemoveItem(ItemSO itemToRemove)
     {
         if (Items.Remove(itemToRemove))
         {
