@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 
 public class UIInventory : UIBase
@@ -27,32 +28,44 @@ public class UIInventory : UIBase
         base.Awake();
     }
 
+    private void Start()
+    {
+        // 1. Player 및 Inventory 참조를 한 번만 가져옵니다.
+        player = GameManager.Instance.player;
+        if (player != null)
+        {
+            inventory = player.Inventory;
+        }
+        else
+        {
+            Debug.LogError("UIInventory: Player 참조를 찾을 수 없습니다!");
+        }
+
+        // 2. 인벤토리 슬롯들을 생성합니다.
+        InitInventoryUI();
+    }
+
     protected override void OnEnable()
     {
         base.OnEnable();
 
-        // UIStatus, Inventory 모두 Enable때마다 조건문을 검색하는 것도 좋지 않은 것 같지만, 현재 순서를 어떻게 해야 할 지 잘 모르겠습니다.
-        if (player == null)
-            player = GameManager.Instance.player;
-
-        if (player != null)
-            inventory = player.Inventory;
+        if (closeButton != null)
+            closeButton.onClick.AddListener(Close);
 
         if (inventory != null)
             inventory.OnInventoryChanged += RefreshInventory;
         
         RefreshInventory();
-        closeButton.onClick.AddListener(Close);
     }
 
     protected override void OnDisable()
     {
         base.OnDisable();
+        if (closeButton != null)
+            closeButton.onClick.RemoveListener(Close);
+
         if (inventory != null)
-        {
             inventory.OnInventoryChanged -= RefreshInventory;
-        }
-        closeButton.onClick.RemoveListener(Close);
     }
 
     private void InitInventoryUI()
@@ -82,6 +95,8 @@ public class UIInventory : UIBase
                 slots[i].SetItem(null);
             }
         }
+
+        InitInventoryUI();
     }
 
     private void Close()
