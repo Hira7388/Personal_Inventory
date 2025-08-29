@@ -81,6 +81,12 @@ public class UIMainMenu : UIBase
         UIManager.Instance.OpenUI<UIInventory>();
     }
 
+    // 외부 호출용
+    public void ShowButtonGroup()
+    {
+        hiddenButtonGroup.SetActive(true);
+    }
+
 
     // =====================
     // 플레이어 정보 받아오기

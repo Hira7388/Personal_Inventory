@@ -6,6 +6,10 @@ public class UIManager : Singleton<UIManager>
 {
     public Dictionary<string, UIBase> uiDictionary = new Dictionary<string, UIBase>();
 
+    [Header("시작 시 비활성화할 UI")]
+    [SerializeField]
+    private List<UIBase> initiallyHiddenUIs;
+
     // 다른 UI를 열 때 굳이 해당 UI를 알 필요 없이 UIManager를 통해서 열어달라고 호출하면 된다.
     public void OpenUI<T>() where T : UIBase
     {
@@ -28,5 +32,16 @@ public class UIManager : Singleton<UIManager>
         ui = uiDictionary[uiName];
 
         return ui as T;
+    }
+
+    private void Start()
+    {
+        foreach (var ui in initiallyHiddenUIs)
+        {
+            if (ui != null)
+            {
+                ui.CloseUI();
+            }
+        }
     }
 }

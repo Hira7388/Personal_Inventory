@@ -39,8 +39,13 @@ public class Player : MonoBehaviour
     public event Action OnLevelChanged;
     public event Action OnGoldChanged;
 
+    // 인벤토리
+    public Inventory Inventory { get; private set; }
+
     private void Awake()
     {
+        Inventory = GetComponent<Inventory>();
+
         GameManager.Instance.RegisterPlayer(this);
         InitializeStat();
     }
@@ -112,5 +117,17 @@ public class Player : MonoBehaviour
             gold -= amount;
             OnGoldChanged?.Invoke();
         }
+    }
+
+    public void Equip(Item itemToEquip)
+    {
+        Debug.Log($"{itemToEquip.itemName}을 장착");
+        // TODO: 플레이어 스탯 변경 로직
+    }
+
+    public void UnEquip(Item itemToUnEquip)
+    {
+        Debug.Log($"{itemToUnEquip.itemName}을 해제");
+        // TODO: 플레이어 스탯 복구 로직
     }
 }
